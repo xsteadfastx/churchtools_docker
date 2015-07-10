@@ -1,7 +1,7 @@
 churchtools:
   build: churchtools/
   volumes:
-    - "/srv/www/churchtools/:/var/www/sites/default"
+    - "/srv/www/churchtools/:/var/www"
   ports:
     - "127.0.0.1:9990:80"
   links:
