@@ -1,0 +1,23 @@
+---
+- hosts: localhost
+  remote_user: root
+
+  tasks:
+
+    - name: create churchtools config
+      template:
+        src=templates/churchtools.config.j2
+        dest=/var/www/sites/default/churchtools.config
+
+    - name: wait for the db container
+      wait_for:
+        host=db
+        port=3306
+
+    - name: churchtools db
+      mysql_db:
+        name=churchtools
+        state=present
+        login_host={{ lookup('env','DB_PORT_3306_TCP_ADDR') }}
+        login_user=root
+        login_password={{ lookup('env','DB_ENV_MYSQL_ROOT_PASSWORD') }}

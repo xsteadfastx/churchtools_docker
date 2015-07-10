@@ -1,0 +1,15 @@
+churchtools:
+  build: churchtools/
+  volumes:
+    - "/srv/www/churchtools/:/var/www/sites/default"
+  ports:
+    - "127.0.0.1:9990:80"
+  links:
+    - db
+
+db:
+  image: mysql:latest
+  volumes_from:
+    - churchtools-mysql-data
+  environment:
+    - MYSQL_ROOT_PASSWORD=mysecretpassword
